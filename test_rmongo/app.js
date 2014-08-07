@@ -107,8 +107,11 @@ app.post('/mongolog', mongodbDemo.logFind(dbevents));
 app.get('/mongo20list', mongodbDemo.logList20(dbevents));
 app.post('/mongo20list', mongodbDemo.logNoRegEx(dbevents));
 
-app.get('/rmongo/rio',rmongo.rio);
-app.get('/rmongo/test',rmongo.test);
+app.get('/rmongo/rio', rmongo.rio);
+app.get('/rmongo/test', rmongo.test);
+app.get('/rmongo/plot', rmongo.plot);
+app.get('/rmongo/showpng', rmongo.showpng);
+app.get('/rmongo/showtxt', rmongo.showtxt);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
