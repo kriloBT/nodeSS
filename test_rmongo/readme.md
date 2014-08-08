@@ -4,19 +4,22 @@ test_rmongo
 
 mongo start
 -----
->mongod
-
+```sh
+> mongod
+```
 
 R start
 -----
->R CMD Rserve
-
+```sh
+> R CMD Rserve
+```
 
 node start
 -----
->npm install
-
->node app
+```sh
+> npm install
+> node app
+```
 
 
 browse
