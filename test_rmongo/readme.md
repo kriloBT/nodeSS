@@ -10,8 +10,16 @@ test_rmongo
 
 ### R start
 
+windows
+```bash
+> cd C:\Users\name\Documents\R\win-library\3.1\Rserve\libs\i386>R
+> R CMD Rserve
+```
+
+linux
 ```bash
 > R CMD Rserve
+> sudo netstat -ntlp|grep Rserve
 ```
 
 ### node start
