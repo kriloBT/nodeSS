@@ -52,6 +52,9 @@ linux
 ## R 環境設定  R enviroment settings
 
 ```R
+#Rserve part
+install.packages("Rserve")
+
 #mongo part
 install.packages("jsonlite")
 install.packages("plyr")
