@@ -2,28 +2,27 @@ test_rmongo
 ==========
 
 
-mongo start
------
+## mongo start
+
 ```sh
 > mongod
 ```
 
-R start
------
+## R start
+
 ```sh
 > R CMD Rserve
 ```
 
-node start
------
+## node start
+
 ```sh
 > npm install
 > node app
 ```
 
 
-browse
-------
+## browse
 
  [http://localhost:8000/rmongo/hist](http://localhost:8000/rmongo/hist)
  
