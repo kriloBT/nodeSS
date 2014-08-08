@@ -1,22 +1,22 @@
 test_rmongo
-==========
+-----
 
 
 ### mongo start
 
-```sh
+```bash
 > mongod
 ```
 
 ### R start
 
-```sh
+```bash
 > R CMD Rserve
 ```
 
 ### node start
 
-```sh
+```bash
 > npm install
 > node app
 ```
