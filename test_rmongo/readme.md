@@ -4,8 +4,14 @@ test_rmongo
 
 ### mongo @2.6.1
 
+windows
 ```bash
 > mongod
+```
+
+linux
+```bash
+> sudo service mongod start
 ```
 
 ### R @3.1
