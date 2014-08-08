@@ -2,13 +2,13 @@ test_rmongo
 -----
 
 
-### mongo start
+### mongo @2.6.1
 
 ```bash
 > mongod
 ```
 
-### R start
+### R @3.1
 
 windows
 ```bash
@@ -22,7 +22,7 @@ linux
 > sudo netstat -ntlp|grep Rserve
 ```
 
-### node start
+### node @0.10.28
 
 ```bash
 > npm install
@@ -39,3 +39,20 @@ linux
  [http://localhost:8000/rmongo/plot](http://localhost:8000/rmongo/plot)
  
  [http://localhost:8000/rmongo/showPlot](http://localhost:8000/rmongo/showPlot)
+ 
+ 
+ 
+ 
+## R 環境設定  R enviroment settings
+
+```R
+#mongo part
+install.packages("jsonlite")
+install.packages("plyr")
+install.packages("rmongodb")
+
+#plot graph
+install.packages("digest")
+install.packages("ggplot2")
+```
+ 
