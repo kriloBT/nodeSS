@@ -99,7 +99,7 @@ var getPlot = function (err, res) {
 }
 
 exports.hist = function (req, res) {
-	var RscriptFilename = "/user_amountPlotColor.R";	//var RscriptFilename = req.body.;
+	var RscriptFilename = "/user_amountPlotScatter.R";	//var RscriptFilename = req.body.;
 	var RscriptEntryPnt = "createDummyPlot";	//var RscriptEntrypnt = "createDummyPlot";
 	
     rio.sourceAndEval(__dirname + RscriptFilename, {
