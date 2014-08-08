@@ -17,7 +17,7 @@ colnames(dtotal) <- c('userID','amount');
 #print(class(dtotal));
 
 createDummyPlot <- function () {
-    filename <- tempfile('plot', fileext = '.png')
+    filename <- tempfile('ggplot', fileext = '.png')
 	
     #png(filename)
 	library(ggplot2);
@@ -26,7 +26,8 @@ createDummyPlot <- function () {
 	guides(fill= FALSE) +
 	geom_bar(stat = 'identity', colour = 'white') +
 	xlab('userID') + ylab('amount');
-  
+	
+	#ggsave(showhist,filename)
     dev.off()
 
     image <- readBin(filename, 'raw', 150000) #29999

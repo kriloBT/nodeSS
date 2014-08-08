@@ -69,27 +69,13 @@ exports.test = function (req, res) {
     test.evaluate(rcmd, options);//运行R代码
 };
 
-exports.plot = function (req, res) {
-	
-	//var RscriptFilename = req.body.;
-	//var RscriptEntrypnt = "createDummyPlot";
-	var RscriptFilename = "/user_amountPlotColor.R";
-	var RscriptEntrypnt = "createDummyPlot";
-	
-    rio.sourceAndEval(__dirname + RscriptFilename, {
-        entryPoint: RscriptEntrypnt,
-        callback: getPlot
-    });
-	res.end();
-}
-
-var getPlot = function (err, res) {
+//node R mongo
+var getHist = function (err, res) {
     if (!err) {
-		//var pngFilename = param;
-		var pngFilename = "test4.png";
+		var pngFilename = "testHist.png";	//var pngFilename = param;
         fs.writeFile(pngFilename, res, { encoding: "binary" }, function (err) {
             if (!err) {
-                console.log(pngFilename + " saved in " + __dirname);
+            	console.log("saved: " + __dirname + pngFilename);
             }
         });
     } else {
@@ -97,26 +83,63 @@ var getPlot = function (err, res) {
     }
 }
 
-exports.showpng = function (req, res) {
-	//var pngFilename = req.body.filename;
-	var pngFilename = "test4.png";
-    fs.readFile(pngFilename, res, "binary", function (err, file) {
-        if (!err) {
-            console.log("load file");
-            res.writeHead(200, { "Content-Type": "image/png" });
-            res.write(file, "binary");
-            res.end();
-        }else { }
-})
+var getPlot = function (err, res) {
+    if (!err) {
+		var pngFilename = "testPlot.png";	//var pngFilename = param;
+        fs.writeFile(pngFilename, res, { encoding: "binary" }, function (err) {
+            if (!err) {
+            	console.log("saved: " + __dirname + pngFilename);
+            }
+        });
+    } else {
+        console.log("Loading image failed");
+		res.writeHead(200, { "Content-Type" : "text/plain" });
+		res.write("fail");
+    }
+}
+
+exports.hist = function (req, res) {
+	var RscriptFilename = "/user_amountPlotColor.R";	//var RscriptFilename = req.body.;
+	var RscriptEntryPnt = "createDummyPlot";	//var RscriptEntrypnt = "createDummyPlot";
+	
+    rio.sourceAndEval(__dirname + RscriptFilename, {
+        entryPoint: RscriptEntryPnt,
+        callback: getHist
+    });
+	res.end();
+}
+
+exports.plot = function (req, res) {
+	var RscriptFilename = "/iris_mongo_plot.R";	//var RscriptFilename = req.body.;
+	var RscriptEntryPnt = "createDummyPlot";	//var RscriptEntrypnt = "createDummyPlot";
+	
+    rio.sourceAndEval(__dirname + RscriptFilename, {
+        entryPoint: RscriptEntryPnt,
+        callback: getPlot
+    });
+	res.end();
+}
+
+exports.showHist = function (req, res) {
+	var pngFilename = "testHist.png"; 	//var pngFilename = req.body.filename;
+	fs.readFile(pngFilename, res, "binary", function (err, file) {
+		if (!err) {
+			console.log("load: "+pngFilename);
+			res.writeHead(200, { "Content-Type" : "image/png" });
+			res.write(file, "binary");
+			res.end();
+		} else {}
+	})
 };
 
-exports.showtxt = function (req, res) {
-    fs.readFile("test.txt", res, "binary", function (err, file) {
-        if (!err) {
-            console.log("load file");
-            res.writeHead(200, { "Content-Type": "text/plain" });
-            res.write(file, "binary");
-            res.end();
-        }else { }
-    })
+exports.showPlot = function (req, res) {
+	var pngFilename = "testPlot.png"; 	//var pngFilename = req.body.filename;
+	fs.readFile(pngFilename, res, "binary", function (err, file) {
+		if (!err) {
+			console.log("load: "+pngFilename);
+			res.writeHead(200, { "Content-Type" : "image/png" });
+			res.write(file, "binary");
+			res.end();
+		} else {}
+	})
 };
