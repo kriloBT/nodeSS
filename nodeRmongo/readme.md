@@ -21,11 +21,12 @@ install.packages("ggplot2")
 ### mongodb 準備資料 (prepare data)
 user_amount
 ```
-> mongo localhost:27017/test2 "c:/Users/name/Desktop/nodeRmongo/data/data.js"
+> cd "c:/Users/name/Desktop/nodeRmongo"
+> mongo localhost:27017/test2 "./data/user_amount.js"
 ```
 iris
 ```
-> mongoimport -d rmongodb -c iris --type csv --file "c:/Users/name/Desktop/nodeRmongo/data/iris.csv" --headerline
+> mongoimport -d rmongodb -c iris --type csv --file "./data/iris.csv" --headerline
 ```
 
 ## run 以下為執行區
@@ -44,8 +45,9 @@ linux
 ### R @3.1
 
 windows
+note:`name` should replace to your username
 ```bash
-> cd C:\Users\name\Documents\R\win-library\3.1\Rserve\libs\i386>R
+> cd "C:/Users/name/Documents/R\win-library/3.1/Rserve/libs/i386"
 > R CMD Rserve
 ```
 
