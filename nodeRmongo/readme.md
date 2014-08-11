@@ -58,7 +58,7 @@ linux
 windows
 note:`name` should replace to your username
 ```bash
-> cd "C:/Users/name/Documents/R\win-library/3.1/Rserve/libs/i386"
+> cd "C:/Users/name/Documents/R/win-library/3.1/Rserve/libs/i386"
 > R CMD Rserve
 ```
 
