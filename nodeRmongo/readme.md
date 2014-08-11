@@ -20,15 +20,26 @@ install.packages("ggplot2")
 
 ### mongodb 準備資料 (prepare data)
 user_amount
-```
+```bash
 > cd "c:/Users/name/Desktop/nodeRmongo"
 > mongo localhost:27017/test2 "./data/user_amount.js"
 ```
 iris
-```
+```bash
 > mongoimport -d rmongodb -c iris --type csv --file "./data/iris.csv" --headerline
 ```
+check exists
+```bash
+> mongod
+> use test2
+> show collections
+c2
+> use rmongodb
+> show collections
+iris
+```
 
+## 
 ## run 以下為執行區
 ### mongo @2.6.1
 
