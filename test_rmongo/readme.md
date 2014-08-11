@@ -42,11 +42,9 @@ linux
  
  [http://localhost:8000/rmongo/showHist](http://localhost:8000/rmongo/showHist)
  
- [http://localhost:8000/rmongo/plot](http://localhost:8000/rmongo/plot)
+ [http://localhost:8000/Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png](http://localhost:8000/Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png)
  
- [http://localhost:8000/rmongo/showPlot](http://localhost:8000/rmongo/showPlot)
- 
- 
+ [http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png](http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png)
  
  
 ## R 環境設定  R enviroment settings

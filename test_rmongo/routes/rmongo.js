@@ -75,31 +75,16 @@ var getHist = function (err, res) {
 		var pngFilename = "testHist.png";	//var pngFilename = param;
         fs.writeFile(pngFilename, res, { encoding: "binary" }, function (err) {
             if (!err) {
-            	console.log("saved: " + __dirname + pngFilename);
+            	console.log("save: " + __dirname + pngFilename);
             }
         });
     } else {
         console.log("Loading image failed");
-    }
-}
-
-var getPlot = function (err, res) {
-    if (!err) {
-		var pngFilename = "testPlot.png";	//var pngFilename = param;
-        fs.writeFile(pngFilename, res, { encoding: "binary" }, function (err) {
-            if (!err) {
-            	console.log("saved: " + __dirname + pngFilename);
-            }
-        });
-    } else {
-        console.log("Loading image failed");
-		res.writeHead(200, { "Content-Type" : "text/plain" });
-		res.write("fail");
     }
 }
 
 exports.hist = function (req, res) {
-	var RscriptFilename = "/user_amountPlotScatter.R";	//var RscriptFilename = req.body.;
+	var RscriptFilename = "/user_amountPlotColor.R";	//var RscriptFilename = req.body.;
 	var RscriptEntryPnt = "createDummyPlot";	//var RscriptEntrypnt = "createDummyPlot";
 	
     rio.sourceAndEval(__dirname + RscriptFilename, {
@@ -109,19 +94,8 @@ exports.hist = function (req, res) {
 	res.end();
 }
 
-exports.plot = function (req, res) {
-	var RscriptFilename = "/iris_mongo_plot.R";	//var RscriptFilename = req.body.;
-	var RscriptEntryPnt = "createDummyPlot";	//var RscriptEntrypnt = "createDummyPlot";
-	
-    rio.sourceAndEval(__dirname + RscriptFilename, {
-        entryPoint: RscriptEntryPnt,
-        callback: getPlot
-    });
-	res.end();
-}
-
 exports.showHist = function (req, res) {
-	var pngFilename = "testHist.png"; 	//var pngFilename = req.body.filename;
+	var pngFilename = "testHist.png"; 	//var pngFilename = req.query.filename;
 	fs.readFile(pngFilename, res, "binary", function (err, file) {
 		if (!err) {
 			console.log("load: "+pngFilename);
@@ -132,8 +106,54 @@ exports.showHist = function (req, res) {
 	})
 };
 
+var getPlot = function (err, res) {
+    if (!err) {
+		//var pngFilename = req.query.pngFilename;	
+		var pngFilename = "testPlot.png";	
+        fs.writeFile(pngFilename, res, { encoding: "binary" }, function (err) {
+            if (!err) {
+            	console.log("save: " + __dirname + pngFilename);
+				//res.writeHead(200, { "Content-Type" : "text/plain" });//TypeError: Object 嚙瞑NG
+				//res.write(pngFilename);
+            }
+        });
+    } else {
+        console.log("Loading image failed");
+		res.writeHead(200, { "Content-Type" : "text/plain" });
+		res.write("fail");
+    }
+}
+
+exports.plot = function (req, res) {
+	var pngFilename = req.query.pngFilename;
+	var RscriptFilename = req.query.Rscript;	//?Rscript=/iris_mongo_plot.R	//var RscriptFilename = "/iris_mongo_plot.R";
+	var RscriptEntryPnt = "createDummyPlot";	//var RscriptEntrypnt = "createDummyPlot";
+	var args = {
+		xlab:'Petal.length',
+		ylab:'petal.width1'
+	};
+	
+    rio.sourceAndEval(__dirname + RscriptFilename, {
+        entryPoint: RscriptEntryPnt,
+		data: args,
+        callback: function (err, res) {
+			if (!err) {
+				fs.writeFile(pngFilename, res, { encoding: "binary" }, function (err) {
+					if (!err) 
+						console.log("save: " + __dirname + pngFilename);
+				});
+			} else {
+				console.log("Loading image failed");
+				res.writeHead(200, { "Content-Type" : "text/plain" });
+				res.write("fail");
+			}
+		}
+    });
+	res.end();
+}
+
 exports.showPlot = function (req, res) {
-	var pngFilename = "testPlot.png"; 	//var pngFilename = req.body.filename;
+	var pngFilename = req.query.filename;	//?filename=testPlot.png	//var pngFilename = "testPlot.png"; 
 	fs.readFile(pngFilename, res, "binary", function (err, file) {
 		if (!err) {
 			console.log("load: "+pngFilename);

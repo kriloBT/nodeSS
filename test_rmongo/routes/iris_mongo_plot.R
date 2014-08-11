@@ -1,4 +1,5 @@
 #connect mongo
+require('RJSONIO');
 library(rmongodb);
 mongo <- mongo.create();
 
@@ -28,12 +29,14 @@ err <- mongo.cursor.destroy(cursor);
 #head(res)
 #class(res)
 
-createDummyPlot <- function () {
+createDummyPlot <- function (obj) {
     filename <- tempfile('testPlot', fileext = '.png')
-
+	
     png(filename)
+	
 	#####plot here
-    plot(res[,4],res[,5],xlab='Petal.Length',ylab='PetalWidth')
+	src = fromJSON(obj)
+    plot(res[,4],res[,5],xlab=src['xlab'],ylab=src['ylab'])
     dev.off()
 
     image <- readBin(filename, 'raw', 29999)
