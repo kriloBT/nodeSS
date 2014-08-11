@@ -129,6 +129,10 @@ exports.plot = function (req, res) {
 	var RscriptFilename = req.query.Rscript;	//?Rscript=/iris_mongo_plot.R	//var RscriptFilename = "/iris_mongo_plot.R";
 	var RscriptEntryPnt = "createDummyPlot";	//var RscriptEntrypnt = "createDummyPlot";
 	var args = {
+		db:'rmongodb',
+		collection:'iris',
+		xdata:'plen',
+		ydata:'pwid',
 		xlab:'Petal.length',
 		ylab:'petal.width1'
 	};
@@ -144,8 +148,6 @@ exports.plot = function (req, res) {
 				});
 			} else {
 				console.log("Loading image failed");
-				res.writeHead(200, { "Content-Type" : "text/plain" });
-				res.write("fail");
 			}
 		}
     });
