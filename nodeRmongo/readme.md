@@ -1,7 +1,34 @@
 test_rmongo
 -----
 
+### R 安裝設定  R environment settings
 
+```R
+#Rserve part
+install.packages("Rserve")
+
+#mongo part
+install.packages("RJSONIO")
+install.packages("jsonlite")
+install.packages("plyr")
+install.packages("rmongodb")
+
+#plot graph
+install.packages("digest")
+install.packages("ggplot2")
+```
+
+### mongodb 準備資料 (prepare data)
+user_amount
+```
+> mongo localhost:27017/test2 "c:/Users/name/Desktop/nodeRmongo/data/data.js"
+```
+iris
+```
+> mongoimport -d rmongodb -c iris --type csv --file "c:/Users/name/Desktop/nodeRmongo/data/iris.csv" --headerline
+```
+
+## run 以下為執行區
 ### mongo @2.6.1
 
 windows
@@ -45,21 +72,4 @@ linux
  [http://localhost:8000/Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png](http://localhost:8000/Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png)
  
  [http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png](http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png)
- 
- 
-## R 環境設定  R enviroment settings
-
-```R
-#Rserve part
-install.packages("Rserve")
-
-#mongo part
-install.packages("jsonlite")
-install.packages("plyr")
-install.packages("rmongodb")
-
-#plot graph
-install.packages("digest")
-install.packages("ggplot2")
-```
  
