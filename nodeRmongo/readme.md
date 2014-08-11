@@ -39,8 +39,8 @@ c2
 iris
 ```
 
-## 
-## run 以下為執行區
+# 
+# run 以下為執行區
 ### mongo @2.6.1
 
 windows
@@ -86,3 +86,45 @@ linux
  
  [http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png](http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png)
  
+# function explanation 使用程式碼
+### ./routes/Rmongo.js
+
+```js
+	var args = {
+		db:'rmongodb',
+		collection:'iris',
+		xdata:'plen',
+		ydata:'pwid',
+		xlab:'Petal.length',
+		ylab:'petal.width1'
+	};
+```
+```js
+    rio.sourceAndEval(__dirname + RscriptFilename, {
+        entryPoint: RscriptEntryPnt,
+		data: args,
+        callback: function (err, res) {
+			if (!err) {
+				fs.writeFile(pngFilename, res, { encoding: "binary" }, function (err) {
+					if (!err) 
+						console.log("save: " + __dirname + pngFilename);
+				});
+			} else {
+				console.log("Loading image failed");
+			}
+		}
+    });
+```
+```js
+exports.showPlot = function (req, res) {
+	var pngFilename = req.query.filename;	//?filename=testPlot.png	//var pngFilename = "testPlot.png"; 
+	fs.readFile(pngFilename, res, "binary", function (err, file) {
+		if (!err) {
+			console.log("load: "+pngFilename);
+			res.writeHead(200, { "Content-Type" : "image/png" });
+			res.write(file, "binary");
+			res.end();
+		} else {}
+	})
+};
+```
