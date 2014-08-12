@@ -80,6 +80,9 @@ linux
 
  [http://localhost:8000/rmongo/hist](http://localhost:8000/rmongo/hist)
  
+ 第一次執行有
+ Error in ggsave(filename) : plot should be a ggplot2 plot
+ 
  [http://localhost:8000/rmongo/showHist](http://localhost:8000/rmongo/showHist)
  
  [http://localhost:8000/Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png](http://localhost:8000/Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png)
