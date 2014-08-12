@@ -15,28 +15,31 @@ mongo <- mongo.create();
 #irisout <- mongo.insert.batch(mongo,"rmongodb.iris",irisinput)
 
 #load from mongo
-cursor <-mongo.find(mongo,"rmongodb.iris",query='{}');
-res<-NULL;
-while(mongo.cursor.next(cursor)){
-	value <-mongo.cursor.value(cursor)
-#print(value)
-	tmp <- mongo.bson.to.list(value)
-#print(tmp)
-	res <-rbind(res,tmp)
-}
-err <- mongo.cursor.destroy(cursor);
+#cursor <-mongo.find(mongo,"rmongodb.iris",query='{}');
 
 #head(res)
 #class(res)
 
 createDummyPlot <- function (obj) {
-    filename <- tempfile('testPlot', fileext = '.png')
+	mongo <- mongo.create();
+	src = fromJSON(obj);
+	cursor <-mongo.find(mongo,paste(src['db'],src['collection'],sep='.'),query='{}');
+	res<-NULL;
+	while(mongo.cursor.next(cursor)){
+		value <-mongo.cursor.value(cursor);
+		tmp <- mongo.bson.to.list(value);
+		res <-rbind(res,tmp);
+	}
+	err <- mongo.cursor.destroy(cursor);
+	print(res[0,]) # _id slen swid plen pwid species
+	#print(src['xdata']) #plen
+    
 	
+	filename <- tempfile('testPlot', fileext = '.png')
     png(filename)
 	
 	#####plot here
-	src = fromJSON(obj)
-    plot(res[,4],res[,5],xlab=src['xlab'],ylab=src['ylab'])
+    plot(res[,src['xdata']],res[,src['ydata']],xlab=src['xlab'],ylab=src['ylab'])
     dev.off()
 
     image <- readBin(filename, 'raw', 29999)
