@@ -22,7 +22,7 @@ install.packages("ggplot2")
 user_amount
 ```bash
 > cd "c:/Users/name/Desktop/nodeRmongo"
-> mongo localhost:27017/test2 "./data/user_amount.js"
+> mongo localhost:27017/test2 "./data/data.js"
 ```
 iris
 ```bash
@@ -84,7 +84,17 @@ linux
  
  [http://localhost:8000/Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png](http://localhost:8000/Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png)
  
+ ```bash
+ GET /Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png 200 4ms
+ save: C:\Users\name\Desktop\nodeRmongo\routestest2Plot.png
+ ```
+ 
  [http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png](http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png)
+ 
+ ```bash
+load: test3Plot.png
+GET /Rmongo/showPlot?filename=test2Plot.png 200 5ms
+ ```
  
 # function explanation 使用程式碼
 ### ./routes/Rmongo.js
