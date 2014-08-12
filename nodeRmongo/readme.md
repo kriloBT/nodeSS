@@ -103,8 +103,8 @@ GET /Rmongo/showPlot?filename=test2Plot.png 200 5ms
 	var args = {
 		db:'rmongodb',
 		collection:'iris',
-		xdata:'plen',
-		ydata:'pwid',
+		xdata:'Petal Length',
+		ydata:'Petal Width',
 		xlab:'Petal.length',
 		ylab:'petal.width1'
 	};
