@@ -100,23 +100,76 @@ GET /Rmongo/showPlot?filename=test2Plot.png 200 5ms
  ```
  
 # function explanation 使用程式碼
+
+![Image](./context.png?raw=true)
+
+### rmongodb
+
+main function|value
+---|---
+mongo.create([host],[name],[username],[password],[db],[timeout]) |
+mongo connection|
+mongo.is.connected(mongo)|TRUE
+mongo.get.databases(mongo)|
+mongo.get.database.collections(mongo,db)|
+mongo.insert(mongo,ns,b)|b: mongo.bson
+mongo.find.one(mongo, ns, query, fields)|ns: "db.collection"
+mongo.find(mongo, ns, query, sort, fields, limit, skip, options)|
+mongo.update(mongo, ns, criteria, objNew, flags)|
+mongo.remove(mongo, ns, criteria = mongo.bson.empty())|
+mongo.drop(mongo, ns)|
+mongo.drop.database(mongo, db)|
+
+
+function|description
+---|---
+mongo.bson.buffer.append(buf,name,value)| 附加 {name:value} 至 mongo.bson.buffer
+mongo.bson.buffer.create()|回傳 new mongo.bson.buffer 用以append data
+mongo.bson.from.buffer(buf)|轉型 mongo.bson.buffer 成 bson
+mongo.bson.from.JSON('{name:value}')|轉型 JSON 成 bson
+mongo.bson.to.list(bson)|轉型 bson 成 R list
+mongo.bson.value(bson,name)|回傳 bson 中 name欄位的值
+mongo.cursor|回傳 mongo.find()的object 用以iterate取
+mongo.cursor.destroy(cursor)|釋放
+mongo.cursor.next(cursor)|下一筆
+mongo.cursor.value(cursor)|取值
+mongo.get.databases(mongo)|回傳 dbs
+mongo.get.database.collections(mongo,db)|回傳 db的collections
+
+rmongodb 練習
+```R
+library(rmongodb);
+mongo <- mongo.create();
+cursor <-mongo.find(mongo,'test.collection',query='{}');
+	res<-NULL;
+	while(mongo.cursor.next(cursor)){
+		value <-mongo.cursor.value(cursor);
+		tmp <- mongo.bson.to.list(value);
+		res <-rbind(res,tmp);
+	}
+	err <- mongo.cursor.destroy(cursor);
+```
+
 ### ./routes/Rmongo.js
 
+
 ```js
+var rio = require('rio');
+
+exports.plot = function (req, res) {
+	var pngFilename = req.query.pngFilename;
+	var RscriptFilename = req.query.Rscript;
+	var RscriptEntryPnt = "createDummyPlot";
 	var args = {
-		db:'rmongodb',
-		collection:'iris',
-		xdata:'Petal Length',
-		ydata:'Petal Width',
-		xlab:'Petal.length',
-		ylab:'petal.width1'
+		db:'rmongodb',		collection:'iris',
+		xdata:'Petal.Length',		ydata:'Petal.Width',
+		xlab:'Petal.length',		ylab:'petal.width1'
 	};
-```
-```js
-    rio.sourceAndEval(__dirname + RscriptFilename, {
-        entryPoint: RscriptEntryPnt,
+	
+	rio.sourceAndEval(__dirname + RscriptFilename, {
+	      	entryPoint: RscriptEntryPnt,
 		data: args,
-        callback: function (err, res) {
+	       	callback: function (err, res) {
 			if (!err) {
 				fs.writeFile(pngFilename, res, { encoding: "binary" }, function (err) {
 					if (!err) 
@@ -126,20 +179,9 @@ GET /Rmongo/showPlot?filename=test2Plot.png 200 5ms
 				console.log("Loading image failed");
 			}
 		}
-    });
-```
-```js
-exports.showPlot = function (req, res) {
-	var pngFilename = req.query.filename;	//?filename=testPlot.png	//var pngFilename = "testPlot.png"; 
-	fs.readFile(pngFilename, res, "binary", function (err, file) {
-		if (!err) {
-			console.log("load: "+pngFilename);
-			res.writeHead(200, { "Content-Type" : "image/png" });
-			res.write(file, "binary");
-			res.end();
-		} else {}
-	})
-};
-```
+	});
 
-![Image](./context.png?raw=true)
+	res.end();
+}
+
+```
