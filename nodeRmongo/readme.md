@@ -142,4 +142,4 @@ exports.showPlot = function (req, res) {
 };
 ```
 
-![Image](../nodeSS/master/nodeRmongo/context.png?raw=true)
+![Image](./context.png?raw=true)
