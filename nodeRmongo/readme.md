@@ -89,7 +89,7 @@ linux
  
  ```bash
  GET /Rmongo/plot?Rscript=/iris_mongo_plot.R&pngFilename=test2Plot.png 200 4ms
- save: C:\Users\name\Desktop\nodeRmongo\routestest2Plot.png
+ save: /home/user/nodejs/nodeRmongo/routestest2Plot.png 
  ```
  
  [http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png](http://localhost:8000/Rmongo/showPlot?filename=test2Plot.png)
