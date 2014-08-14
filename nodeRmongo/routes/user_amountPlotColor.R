@@ -1,4 +1,5 @@
 library(rmongodb);
+library(ggplot2);
 mongo<-mongo.create();
 pipe_a <- mongo.bson.from.JSON('
     {\"$group\":
@@ -20,7 +21,7 @@ createDummyPlot <- function () {
     filename <- tempfile('ggplot', fileext = '.png')
 	
     #png(filename)
-	library(ggplot2);
+	
 	ggsave(filename)
 	ggplot(dtotal, aes(userID, amount, fill = amount)) +
 	guides(fill= FALSE) +
