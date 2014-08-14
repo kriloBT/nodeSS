@@ -131,8 +131,8 @@ exports.plot = function (req, res) {
 	var args = {
 		db:'rmongodb',
 		collection:'iris',
-		xdata:'plen',
-		ydata:'pwid',
+		xdata:'Petal.Length',
+		ydata:'Petal.Width',
 		xlab:'Petal.length',
 		ylab:'petal.width1'
 	};
