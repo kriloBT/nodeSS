@@ -23,17 +23,18 @@ createDummyPlot <- function () {
 	
     #png(filename)
 	
-	ggsave(filename)
+	#ggsave(filename)
 	ggplot(dtotal, aes(userID, amount, fill = amount)) +
 	guides(fill= FALSE) +
 	geom_bar(stat = 'identity', colour = 'white') +
 	xlab('userID') + ylab('amount');
 	
+	ggsave(filename)
 	#ggsave(showhist,filename)
     dev.off()
 
     image <- readBin(filename, 'raw', 150000) #29999
-    #unlink(filename)
+    unlink(filename)
 
     image
 }
