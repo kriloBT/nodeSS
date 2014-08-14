@@ -33,7 +33,7 @@ createDummyPlot <- function () {
     dev.off()
 
     image <- readBin(filename, 'raw', 150000) #29999
-    unlink(filename)
+    #unlink(filename)
 
     image
 }
