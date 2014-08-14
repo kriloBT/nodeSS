@@ -1,12 +1,13 @@
 nodeRmongo
 -----
 
-###安裝 mongodb
+
+# 安裝
+
+### 安裝 mongodb
 
 Reference
-
 [http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
-
 ```bash
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 sudo add-apt-repository "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen"
@@ -17,7 +18,6 @@ sudo service mongod start
 
 
 ### 安裝 R
-
 Reference
 
 [http://cran.csie.ntu.edu.tw/bin/linux/ubuntu/README.html](http://cran.csie.ntu.edu.tw/bin/linux/ubuntu/README.html)
@@ -25,7 +25,6 @@ Reference
 [http://rwepa.blogspot.tw/2013/05/ubuntu-r.html](http://rwepa.blogspot.tw/2013/05/ubuntu-r.html)
 
 check ubuntu ```$ lsb_release -a``` Description:     Ubuntu 12.04 LTS
-
 ```bash
 $ sudo add-apt-repository "deb http://mirror.bjtu.edu.cn/cran/bin/linux/ubuntu precise/"
 $ sudo apt-get update
@@ -34,7 +33,6 @@ $ sudo R
 ```
 
 ### 安裝R packages
-
 ```R
 #Rserve part
 install.packages("Rserve")
@@ -51,7 +49,6 @@ install.packages("ggplot2")
 ```
 
 ### 安裝 node.js
-
 Reference
 
 [https://chrislea.com/2013/06/25/getting-debian-packages-sources-from-launchpad/](https://chrislea.com/2013/06/25/getting-debian-packages-sources-from-launchpad/)
@@ -64,7 +61,6 @@ $ node -v
 ```
 
 ### 使用 git clone 執行 nodeRmongo
-
 ```bash
 $ sudo apt-get install git
 $ git clone https://github.com/kriloBT/nodeSS.git
