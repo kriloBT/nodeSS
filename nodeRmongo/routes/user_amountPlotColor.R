@@ -21,9 +21,9 @@ colnames(dtotal) <- c('userID','amount');
 createDummyPlot <- function () {
     filename <- tempfile('ggplot', fileext = '.png')
 	
-    png(filename)
+    #png(filename)
 	
-	#ggsave(filename)
+	ggsave(filename)
 	ggplot(dtotal, aes(userID, amount, fill = amount)) +
 	guides(fill= FALSE) +
 	geom_bar(stat = 'identity', colour = 'white') +
