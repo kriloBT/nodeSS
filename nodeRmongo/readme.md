@@ -1,7 +1,39 @@
-test_rmongo
+nodeRmongo
 -----
 
-### R 安裝設定  R environment settings
+###安裝 mongodb
+
+Reference
+
+[http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
+
+```bash
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+sudo add-apt-repository "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen"
+sudo apt-get update
+sudo apt-get install mongodb-org
+sudo service mongod start
+```
+
+
+### 安裝 R
+
+Reference
+
+[http://cran.csie.ntu.edu.tw/bin/linux/ubuntu/README.html](http://cran.csie.ntu.edu.tw/bin/linux/ubuntu/README.html)
+
+[http://rwepa.blogspot.tw/2013/05/ubuntu-r.html](http://rwepa.blogspot.tw/2013/05/ubuntu-r.html)
+
+check ubuntu ```$ lsb_release -a``` Description:     Ubuntu 12.04 LTS
+
+```bash
+$ sudo add-apt-repository "deb http://mirror.bjtu.edu.cn/cran/bin/linux/ubuntu precise/"
+$ sudo apt-get update
+$ sudo apt-get install r-base r-base-dev
+$ sudo R
+```
+
+### 安裝R packages
 
 ```R
 #Rserve part
@@ -18,26 +50,47 @@ install.packages("digest")
 install.packages("ggplot2")
 ```
 
+### 安裝 node.js
+
+Reference
+
+[https://chrislea.com/2013/06/25/getting-debian-packages-sources-from-launchpad/](https://chrislea.com/2013/06/25/getting-debian-packages-sources-from-launchpad/)
+
+```bash
+$ sudo add-apt-repository ppa:chris-lea/node.js
+$ sudo apt-get update
+$ sudo apt-get install nodejs
+$ node -v
+```
+
+### 使用 git clone 執行 nodeRmongo
+
+```bash
+$ sudo apt-get install git
+$ git clone https://github.com/kriloBT/nodeSS.git
+$ cd nodeSS/nodeRmongo
+$ npm install
+$ node app
+
+```
+
 ### mongodb 準備資料 (prepare data)
 user_amount
 ```bash
-> cd "c:/Users/name/Desktop/nodeRmongo"
-> mongo localhost:27017/test2 "./data/data.js"
+$ mongo localhost:27017/test2 "./data/data.js"
 ```
 iris
 ```bash
-> mongoimport -d rmongodb -c iris --type csv --file "./data/iris.csv" --headerline
+$ mongoimport -d rmongodb -c iris --type csv --file "./data/iris.csv" –headerline
 ```
 check exists
 ```bash
-> mongod
-> use test2
-> show collections
-c2
+$ mongo test2
+> db.c2.find()
 > use rmongodb
-> show collections
-iris
+> db.iris.find()
 ```
+
 
 # 
 # run 以下為執行區
