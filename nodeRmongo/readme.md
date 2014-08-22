@@ -26,6 +26,7 @@ Reference
 
 check ubuntu ```$ lsb_release -a``` Description:     Ubuntu 12.04 LTS
 ```bash
+$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 $ sudo add-apt-repository "deb http://mirror.bjtu.edu.cn/cran/bin/linux/ubuntu precise/"
 $ sudo apt-get update
 $ sudo apt-get install r-base r-base-dev
