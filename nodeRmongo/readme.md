@@ -245,6 +245,7 @@ library(plyr);
 
 mongo<-mongo.create(host = "localhost");
 fields = mongo.bson.from.JSON('{\"_id\":1,\"host.ip\":1,\"level\":1,\"message\":1}')
+
 #tmp = mongo.find.one(mongo, ns = "events.events",fields = mongo.bson.from.JSON('{\"_id\":1,\"host.ip\":1,\"level\":1,\"message\":1}'))
 tmp = mongo.find.one(mongo, ns = "events.events")
 
