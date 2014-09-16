@@ -235,3 +235,48 @@ exports.plot = function (req, res) {
 }
 
 ```
+
+## log.js
+
+```r
+library(rmongodb);
+library(ggplot2);
+library(plyr);
+
+mongo<-mongo.create(host = "localhost");
+fields = mongo.bson.from.JSON('{\"_id\":1,\"host.ip\":1,\"level\":1,\"message\":1}')
+#tmp = mongo.find.one(mongo, ns = "events.events",fields = mongo.bson.from.JSON('{\"_id\":1,\"host.ip\":1,\"level\":1,\"message\":1}'))
+tmp = mongo.find.one(mongo, ns = "events.events")
+
+dim(tmp)
+#  _id : 7 	 5417eb1c64eae1f02402fae8
+#level : 2 	 warn
+#timestamp : 9 	 2104387432
+#message : 2 	 *****0*****
+#  host : 3 	 
+#ip : 2 	 172.17.24.102
+
+gameids = data.frame(stringsAsFactors = FALSE)
+cursor = mongo.find(mongo, DBNS="events.events") #, fields = mongo.bson.from.JSON('{\"_id\":1,\"host.ip\":1,\"level\":1,\"message\":1}'))
+
+while (mongo.cursor.next(cursor)) {
+  tmp = mongo.bson.to.list(mongo.cursor.value(cursor))
+  tmp.df = as.data.frame(t(unlist(tmp)), stringsAsFactors = F)
+  gameids = rbind.fill(gameids, tmp.df)
+}
+dim(gameids)
+
+#char 2 numeric 2 datetime
+gameids$timestamp <- as.numeric(gameids$timestamp)
+gameids$time <- as.POSIXct(gameids$timestamp,origin="1970-01-01")
+gameids$hhmmss <- format(as.POSIXct(gameids$timestamp,origin="1970-01-01"),"%H:%M:%S")
+
+class(gameids[2,'time']) #POSIXct/POSIXt 日期格式
+class(gameids[2,'hhmmss']) #character 字串
+
+qplot(gameids$time,gameids$host.ip,colour=factor(gameids$level))
+
+ggplot(gameids, aes(time, host.ip, color = factor(level))) +
+  geom_point()+
+  xlab('time') + ylab('host.ip');
+```
